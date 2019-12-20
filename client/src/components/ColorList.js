@@ -21,6 +21,7 @@ const ColorList = ({ colors, updateColors, toggleHack, hack }) => {
     axiosWithAuth()
       .put(`/colors/${colorToEdit.id}`, colorToEdit)
       .then(res => {
+        console.log(res);
         toggleHack(!hack);
       })
       .catch(err => console.log(err));
@@ -34,6 +35,7 @@ const ColorList = ({ colors, updateColors, toggleHack, hack }) => {
     axiosWithAuth()
       .delete(`/colors/${color.id}`)
       .then(res => {
+        console.log(res);
         toggleHack(!hack);
       })
       .catch(err => console.log(err));
