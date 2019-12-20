@@ -6,7 +6,7 @@ const initialColor = {
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors }) => {
+const ColorList = ({ colors, updateColors, toggleHack, hack }) => {
   console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
@@ -20,7 +20,9 @@ const ColorList = ({ colors, updateColors }) => {
     e.preventDefault();
     axiosWithAuth()
       .put(`/colors/${colorToEdit.id}`, colorToEdit)
-      .then(res => console.log(res))
+      .then(res => {
+        toggleHack(!hack);
+      })
       .catch(err => console.log(err));
     // Make a put request to save your updated color
     // think about where will you get the id from...
@@ -32,8 +34,7 @@ const ColorList = ({ colors, updateColors }) => {
     axiosWithAuth()
       .delete(`/colors/${color.id}`)
       .then(res => {
-        setEditing(!editing);
-        setTimeout(() => updateColors([...colors]), 250);
+        toggleHack(!hack);
       })
       .catch(err => console.log(err));
   };
